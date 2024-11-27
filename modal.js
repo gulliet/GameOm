@@ -26,8 +26,36 @@ function launchModal() {
     });
 }
 
+/* jmg */
 const crossMarkElement = document.querySelector(".close");
 crossMarkElement.addEventListener("click", () => {
     console.log("La croix a été clickée !");
     modalbg.classList.add("hidden");
 });
+
+/* jmg */
+function validate() {
+    console.log("Fonction validate() appelée");
+
+    checkFirstName();
+}
+
+/**
+ * Cette fonction vérifie si le prénom est valid
+ */
+function checkFirstName() {
+    console.log("*** function checkFirstName() ***");
+
+    try {
+        const firstNameElement = document.getElementById("first");
+        console.log(firstNameElement);
+
+        const firstName = firstNameElement.value;
+        console.log(`first name: ${firstName}`);
+
+        const formDataElement = document.querySelector("formData");
+        formDataElement.classList.add("data-error");
+    } catch (error) {
+        console.log(`Une erreur est survenue : ${error.message}`);
+    }
+}
