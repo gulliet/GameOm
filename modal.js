@@ -21,3 +21,9 @@ function launchModal() {
 
     console.log("function launchModal()");
 }
+
+const crossMarkElement = document.querySelector(".close");
+crossMarkElement.addEventListener("click", () => {
+    console.log("La croix a été clickée !");
+    modalbg.classList.add("hidden");
+});
