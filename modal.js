@@ -20,6 +20,10 @@ function launchModal() {
     modalbg.style.display = "block";
 
     console.log("function launchModal()");
+    modalbg.addEventListener("submit", (event) => {
+        event.preventDefault();
+        console.log("Comportement par défaut enlevé");
+    });
 }
 
 const crossMarkElement = document.querySelector(".close");
