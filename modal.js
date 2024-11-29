@@ -30,7 +30,7 @@ function launchModal() {
 const crossMarkElement = document.querySelector(".close");
 crossMarkElement.addEventListener("click", () => {
     console.log("La croix a été clickée !");
-    modalbg.classList.add("hidden");
+    modalbg.style.display = "none";
 });
 
 /* jmg */

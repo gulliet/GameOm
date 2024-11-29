@@ -383,11 +383,6 @@ input[data-error]::after {
   background-color: #fff;
 }
 
-/* jmg */
-.hidden {
-  display: none;
-}
-
 /* Style the arrow inside the select element: */
 .select-selected:after {
   position: absolute;
