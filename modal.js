@@ -127,24 +127,32 @@ function isValidName(name) {
  * @returns {boolean} - True si le prénom est valide, sinon False.
  */
 function checkFirstName() {
-    console.log("*** Fonction checkFirstName() appelée ***");
+    try {
+        console.log("*** Fonction checkFirstName() appelée ***");
 
-    const firstNameElement = document.getElementById("first");
-    const firstName = firstNameElement.value.trim();
-    const formDataElement = firstNameElement.closest(".formData");
+        const firstNameElement = document.getElementById("first");
+        if (!firstNameElement)
+            throw new Error("Champ prénom introuvable dans le DOM.");
 
-    if (!isValidName(firstName)) {
-        formDataElement.setAttribute(
-            "data-error",
-            "Le prénom doit contenir au moins 2 caractères, et ne peut contenir que des lettres, espaces ou tirets."
-        );
-        formDataElement.setAttribute("data-error-visible", "true");
-        return false;
+        const firstName = firstNameElement.value.trim();
+        const formDataElement = firstNameElement.closest(".formData");
+
+        if (!isValidName(firstName)) {
+            formDataElement.setAttribute(
+                "data-error",
+                "Le prénom doit contenir au moins 2 caractères, et ne peut contenir que des lettres, espaces ou tirets."
+            );
+            formDataElement.setAttribute("data-error-visible", "true");
+            return false;
+        }
+
+        formDataElement.removeAttribute("data-error");
+        formDataElement.removeAttribute("data-error-visible");
+        return true;
+    } catch (error) {
+        console.error("Erreur dans checkFirstName:", error.message);
+        return false; // Bloque la validation si une erreur inattendue survient
     }
-
-    formDataElement.removeAttribute("data-error");
-    formDataElement.removeAttribute("data-error-visible");
-    return true;
 }
 
 /**
@@ -153,24 +161,32 @@ function checkFirstName() {
  * @returns {boolean} - True si le nom est valide, sinon False.
  */
 function checkLastName() {
-    console.log("*** Fonction checkLastName() appelée ***");
+    try {
+        console.log("*** Fonction checkLastName() appelée ***");
 
-    const lastNameElement = document.getElementById("last");
-    const lastName = lastNameElement.value.trim();
-    const formDataElement = lastNameElement.closest(".formData");
+        const lastNameElement = document.getElementById("last");
+        if (!lastNameElement)
+            throw new Error("Champ nom introuvable dans le DOM.");
 
-    if (!isValidName(lastName)) {
-        formDataElement.setAttribute(
-            "data-error",
-            "Le nom doit contenir au moins 2 caractères, et ne peut contenir que des lettres, espaces ou tirets."
-        );
-        formDataElement.setAttribute("data-error-visible", "true");
+        const lastName = lastNameElement.value.trim();
+        const formDataElement = lastNameElement.closest(".formData");
+
+        if (!isValidName(lastName)) {
+            formDataElement.setAttribute(
+                "data-error",
+                "Le nom doit contenir au moins 2 caractères, et ne peut contenir que des lettres, espaces ou tirets."
+            );
+            formDataElement.setAttribute("data-error-visible", "true");
+            return false;
+        }
+
+        formDataElement.removeAttribute("data-error");
+        formDataElement.removeAttribute("data-error-visible");
+        return true;
+    } catch (error) {
+        console.error("Erreur dans checkLastName:", error.message);
         return false;
     }
-
-    formDataElement.removeAttribute("data-error");
-    formDataElement.removeAttribute("data-error-visible");
-    return true;
 }
 
 /**
@@ -179,31 +195,39 @@ function checkLastName() {
  * @returns {boolean} - True si l'email est valide, sinon False.
  */
 function checkEmail() {
-    console.log("*** Fonction checkEmail() appelée ***");
+    try {
+        console.log("*** Fonction checkEmail() appelée ***");
 
-    const emailElement = document.getElementById("email");
-    const email = emailElement.value.trim();
-    const formDataElement = emailElement.closest(".formData");
+        const emailElement = document.getElementById("email");
+        if (!emailElement)
+            throw new Error("Champ email introuvable dans le DOM.");
 
-    // Validation de base pour l'email (regex simplifiée)
-    // Cette expression régulière vérifie si une chaîne est une adresse email valide.
-    // - Elle commence par un "nom local" (un ou plusieurs caractères sans espaces ni '@').
-    // - Elle contient un '@' suivi d'un domaine (caractères sans espaces ni '@').
-    // - Elle se termine par un point '.' suivi d'une extension (ex. ".com", ".fr").
-    // - Elle n'autorise pas les espaces ou caractères non conventionnels dans ces parties.
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const email = emailElement.value.trim();
+        const formDataElement = emailElement.closest(".formData");
 
-    if (!emailRegex.test(email)) {
-        formDataElement.setAttribute(
-            "data-error",
-            "Veuillez saisir une adresse e-mail valide."
-        );
-        formDataElement.setAttribute("data-error-visible", "true");
-        return false;
-    } else {
+        // Validation de base pour l'email (regex simplifiée)
+        // Cette expression régulière vérifie si une chaîne est une adresse email valide.
+        // - Elle commence par un "nom local" (un ou plusieurs caractères sans espaces ni '@').
+        // - Elle contient un '@' suivi d'un domaine (caractères sans espaces ni '@').
+        // - Elle se termine par un point '.' suivi d'une extension (ex. ".com", ".fr").
+        // - Elle n'autorise pas les espaces ou caractères non conventionnels dans ces parties.
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            formDataElement.setAttribute(
+                "data-error",
+                "Veuillez saisir une adresse e-mail valide."
+            );
+            formDataElement.setAttribute("data-error-visible", "true");
+            return false;
+        }
+
         formDataElement.removeAttribute("data-error");
         formDataElement.removeAttribute("data-error-visible");
         return true;
+    } catch (error) {
+        console.error("Erreur dans checkEmail:", error.message);
+        return false;
     }
 }
 
@@ -213,65 +237,71 @@ function checkEmail() {
  * @returns {boolean} - True si la date de naissance est valide, sinon False.
  */
 function checkBirthdate() {
-    console.log("*** Fonction checkBirthdate() appelée ***");
+    try {
+        console.log("*** Fonction checkBirthdate() appelée ***");
 
-    const birthdateElement = document.getElementById("birthdate");
-    const birthdate = birthdateElement.value.trim();
-    const formDataElement = birthdateElement.closest(".formData");
+        const birthdateElement = document.getElementById("birthdate");
+        if (!birthdateElement)
+            throw new Error("Champ date de naissance introuvable dans le DOM.");
 
-    if (!birthdate) {
-        formDataElement.setAttribute(
-            "data-error",
-            "Veuillez saisir votre date de naissance."
-        );
-        formDataElement.setAttribute("data-error-visible", "true");
+        const birthdate = birthdateElement.value.trim();
+        const formDataElement = birthdateElement.closest(".formData");
+
+        if (!birthdate) {
+            formDataElement.setAttribute(
+                "data-error",
+                "Veuillez saisir votre date de naissance."
+            );
+            formDataElement.setAttribute("data-error-visible", "true");
+            return false;
+        }
+
+        const birthDateObj = new Date(birthdate);
+        const today = new Date();
+
+        if (isNaN(birthDateObj.getTime())) {
+            formDataElement.setAttribute(
+                "data-error",
+                "Veuillez saisir une date valide."
+            );
+            formDataElement.setAttribute("data-error-visible", "true");
+            return false;
+        }
+
+        const age = today.getFullYear() - birthDateObj.getFullYear();
+        const monthDifference = today.getMonth() - birthDateObj.getMonth();
+        const dayDifference = today.getDate() - birthDateObj.getDate();
+
+        if (
+            monthDifference < 0 ||
+            (monthDifference === 0 && dayDifference < 0)
+        ) {
+            age--;
+        }
+
+        if (age < 18) {
+            formDataElement.setAttribute(
+                "data-error",
+                "Vous devez avoir au moins 18 ans."
+            );
+            formDataElement.setAttribute("data-error-visible", "true");
+            return false;
+        } else if (age > 100) {
+            formDataElement.setAttribute(
+                "data-error",
+                "Veuillez saisir une date de naissance valide (moins de 100 ans)."
+            );
+            formDataElement.setAttribute("data-error-visible", "true");
+            return false;
+        }
+
+        formDataElement.removeAttribute("data-error");
+        formDataElement.removeAttribute("data-error-visible");
+        return true;
+    } catch (error) {
+        console.error("Erreur dans checkBirthdate:", error.message);
         return false;
     }
-
-    const birthDateObj = new Date(birthdate);
-    const today = new Date();
-
-    // Vérifier si la date est invalide
-    if (isNaN(birthDateObj.getTime())) {
-        formDataElement.setAttribute(
-            "data-error",
-            "Veuillez saisir une date valide."
-        );
-        formDataElement.setAttribute("data-error-visible", "true");
-        return false;
-    }
-
-    // Calculer l'âge
-    const age = today.getFullYear() - birthDateObj.getFullYear();
-    const monthDifference = today.getMonth() - birthDateObj.getMonth();
-    const dayDifference = today.getDate() - birthDateObj.getDate();
-
-    // Ajustement de l'âge si l'anniversaire n'a pas encore été fêté cette année
-    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
-        age--;
-    }
-
-    // Vérifier si l'âge est dans une plage raisonnable
-    if (age < 18) {
-        formDataElement.setAttribute(
-            "data-error",
-            "Vous devez avoir au moins 18 ans."
-        );
-        formDataElement.setAttribute("data-error-visible", "true");
-        return false;
-    } else if (age > 100) {
-        formDataElement.setAttribute(
-            "data-error",
-            "Veuillez saisir une date de naissance valide (moins de 100 ans)."
-        );
-        formDataElement.setAttribute("data-error-visible", "true");
-        return false;
-    }
-
-    // Si tout est valide
-    formDataElement.removeAttribute("data-error");
-    formDataElement.removeAttribute("data-error-visible");
-    return true;
 }
 
 /**
@@ -280,31 +310,38 @@ function checkBirthdate() {
  * @returns {boolean} - True si la quantité est valide, sinon False.
  */
 function checkQuantity() {
-    console.log("*** Fonction checkQuantity() appelée ***");
+    try {
+        console.log("*** Fonction checkQuantity() appelée ***");
 
-    const quantityElement = document.getElementById("quantity");
-    const quantity = quantityElement.value.trim();
-    const formDataElement = quantityElement.closest(".formData");
+        const quantityElement = document.getElementById("quantity");
+        if (!quantityElement)
+            throw new Error("Champ quantité introuvable dans le DOM.");
 
-    // Vérifier si c'est un nombre entier valide
-    const quantityNumber = parseFloat(quantity); // Conversion en nombre à virgule flottante
+        const quantity = quantityElement.value.trim();
+        const formDataElement = quantityElement.closest(".formData");
 
-    if (
-        isNaN(quantityNumber) || // Pas un nombre valide
-        !Number.isInteger(quantityNumber) || // Pas un entier
-        quantityNumber < 0 || // Trop petit
-        quantityNumber > 99 // Trop grand
-    ) {
-        formDataElement.setAttribute(
-            "data-error",
-            "Veuillez saisir un nombre entier entre 0 et 99."
-        );
-        formDataElement.setAttribute("data-error-visible", "true");
-        return false;
-    } else {
+        const quantityNumber = parseFloat(quantity);
+
+        if (
+            isNaN(quantityNumber) ||
+            !Number.isInteger(quantityNumber) ||
+            quantityNumber < 0 ||
+            quantityNumber > 99
+        ) {
+            formDataElement.setAttribute(
+                "data-error",
+                "Veuillez saisir un nombre entier entre 0 et 99."
+            );
+            formDataElement.setAttribute("data-error-visible", "true");
+            return false;
+        }
+
         formDataElement.removeAttribute("data-error");
         formDataElement.removeAttribute("data-error-visible");
         return true;
+    } catch (error) {
+        console.error("Erreur dans checkQuantity:", error.message);
+        return false;
     }
 }
 
