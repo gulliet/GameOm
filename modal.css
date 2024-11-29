@@ -228,15 +228,17 @@ input {
 
 .formData[data-error]::after {
   content: attr(data-error);
-  font-size: 0.4em;
+  font-size: 0.8rem;
   color: #e54858;
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
-  text-align: right;
-  line-height: 0.3;
+  text-align: left;
+  /* Aligne le message d'erreur à gauche */
+  line-height: 1.2;
+  /* Ajuste l'espacement des lignes */
   opacity: 0;
-  transition: 0.3s;
+  transition: 0.3s ease-in-out;
 }
 
 .formData[data-error-visible="true"]::after {
