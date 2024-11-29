@@ -74,22 +74,10 @@ function checkFirstName() {
     const firstName = firstNameElement.value.trim();
     const formDataElement = firstNameElement.closest(".formData");
 
-    // Expression régulière pour valider les prénoms
-    const nameRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+([ '-][a-zA-ZÀ-ÖØ-öø-ÿ]+)*$/;
-
-    if (!firstName || firstName.length < 2) {
+    if (!isValidName(firstName)) {
         formDataElement.setAttribute(
             "data-error",
-            "Le prénom doit contenir au moins 2 caractères."
-        );
-        formDataElement.setAttribute("data-error-visible", "true");
-        return false;
-    }
-
-    if (!nameRegex.test(firstName)) {
-        formDataElement.setAttribute(
-            "data-error",
-            "Le prénom ne doit contenir que des lettres, espaces ou tirets."
+            "Le prénom doit contenir au moins 2 caractères, et ne peut contenir que des lettres, espaces ou tirets."
         );
         formDataElement.setAttribute("data-error-visible", "true");
         return false;
