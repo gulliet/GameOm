@@ -42,6 +42,7 @@ function validate() {
     const isBirthdateValid = checkBirthdate();
     const isQuantityValid = checkQuantity();
     const isRadioValid = checkRadioButtons();
+    const isTermsValid = checkTermsAndConditions();
 
     // Empêche l'envoi du formulaire si un des champs est invalide
     return (
@@ -50,7 +51,8 @@ function validate() {
         isEmailValid &&
         isBirthdateValid &&
         isQuantityValid &&
-        isRadioValid
+        isRadioValid &&
+        isTermsValid
     );
 }
 
@@ -266,6 +268,33 @@ function checkRadioButtons() {
     }
 
     // Supprime le message d'erreur si un bouton est sélectionné
+    formDataElement.removeAttribute("data-error");
+    formDataElement.removeAttribute("data-error-visible");
+    return true;
+}
+
+/**
+ * Valide si la case "conditions d'utilisation" est cochée.
+ * @returns {boolean} - True si la case est cochée, sinon False.
+ */
+function checkTermsAndConditions() {
+    console.log("*** Fonction checkTermsAndConditions() appelée ***");
+
+    // Sélectionne la première case à cocher (conditions d'utilisation)
+    const termsCheckbox = document.getElementById("checkbox1");
+    const formDataElement = termsCheckbox.closest(".formData");
+
+    if (!termsCheckbox.checked) {
+        // Affiche un message d'erreur si la case n'est pas cochée
+        formDataElement.setAttribute(
+            "data-error",
+            "Vous devez accepter les conditions d'utilisation pour continuer."
+        );
+        formDataElement.setAttribute("data-error-visible", "true");
+        return false;
+    }
+
+    // Supprime le message d'erreur si la case est cochée
     formDataElement.removeAttribute("data-error");
     formDataElement.removeAttribute("data-error-visible");
     return true;
