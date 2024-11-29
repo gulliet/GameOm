@@ -52,6 +52,19 @@ function validate() {
 }
 
 /**
+ * Vérifie si une chaîne est un nom ou prénom valide.
+ * @param {string} name - Le nom ou prénom à valider.
+ * @returns {boolean} - True si le nom est valide, sinon False.
+ */
+function isValidName(name) {
+    // Expression régulière pour valider les noms
+    const nameRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+([ '-][a-zA-ZÀ-ÖØ-öø-ÿ]+)*$/;
+
+    // Vérifie la longueur et la correspondance avec l'expression régulière
+    return name.length >= 2 && nameRegex.test(name);
+}
+
+/**
  * Vérifie si le prénom est valide
  */
 function checkFirstName() {
