@@ -57,7 +57,11 @@ function validate() {
  * @returns {boolean} - True si le nom est valide, sinon False.
  */
 function isValidName(name) {
-    // Expression régulière pour valider les noms
+    // Expression régulière pour valider un nom ou prénom :
+    // - Commence et se termine par une lettre (a-z, A-Z, ou lettres accentuées comme é, è, ô, etc.).
+    // - Permet les espaces, apostrophes ('), et tirets (-) à l'intérieur, mais pas en début ou en fin.
+    // - N'autorise pas les caractères spéciaux autres que ceux cités, ni les chiffres.
+    // - Les espaces, apostrophes, et tirets ne doivent pas apparaître consécutivement.
     const nameRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+([ '-][a-zA-ZÀ-ÖØ-öø-ÿ]+)*$/;
 
     // Vérifie la longueur et la correspondance avec l'expression régulière
