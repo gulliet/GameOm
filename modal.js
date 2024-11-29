@@ -100,6 +100,11 @@ function checkEmail() {
     const formDataElement = emailElement.closest(".formData");
 
     // Validation de base pour l'email (regex simplifiée)
+    // Cette expression régulière vérifie si une chaîne est une adresse email valide.
+    // - Elle commence par un "nom local" (un ou plusieurs caractères sans espaces ni '@').
+    // - Elle contient un '@' suivi d'un domaine (caractères sans espaces ni '@').
+    // - Elle se termine par un point '.' suivi d'une extension (ex. ".com", ".fr").
+    // - Elle n'autorise pas les espaces ou caractères non conventionnels dans ces parties.
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailRegex.test(email)) {
