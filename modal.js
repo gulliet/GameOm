@@ -32,6 +32,7 @@ crossMarkElement.addEventListener("click", () => {
     console.log("La croix a été clickée !");
     modalbg.style.display = "none";
 });
+
 function validate() {
     console.log("Fonction validate() appelée");
 
@@ -40,6 +41,7 @@ function validate() {
     const isEmailValid = checkEmail();
     const isBirthdateValid = checkBirthdate();
     const isQuantityValid = checkQuantity();
+    const isRadioValid = checkRadioButtons();
 
     // Empêche l'envoi du formulaire si un des champs est invalide
     return (
@@ -47,7 +49,8 @@ function validate() {
         isLastNameValid &&
         isEmailValid &&
         isBirthdateValid &&
-        isQuantityValid
+        isQuantityValid &&
+        isRadioValid
     );
 }
 
@@ -234,4 +237,36 @@ function checkQuantity() {
         formDataElement.removeAttribute("data-error-visible");
         return true;
     }
+}
+
+/**
+ * Valide si un bouton radio a été sélectionné dans le groupe "location".
+ * @returns {boolean} - True si un bouton radio est sélectionné, sinon False.
+ */
+function checkRadioButtons() {
+    console.log("*** Fonction checkRadioButtons() appelée ***");
+
+    // Sélectionne tous les boutons radio du groupe "location"
+    const radioButtons = document.querySelectorAll('input[name="location"]');
+    const formDataElement = radioButtons[0].closest(".formData");
+
+    // Vérifie si au moins un bouton est coché
+    const isAnyRadioSelected = Array.from(radioButtons).some(
+        (radio) => radio.checked
+    );
+
+    if (!isAnyRadioSelected) {
+        // Affiche un message d'erreur si aucun bouton n'est sélectionné
+        formDataElement.setAttribute(
+            "data-error",
+            "Veuillez sélectionner un emplacement pour participer au tournoi."
+        );
+        formDataElement.setAttribute("data-error-visible", "true");
+        return false;
+    }
+
+    // Supprime le message d'erreur si un bouton est sélectionné
+    formDataElement.removeAttribute("data-error");
+    formDataElement.removeAttribute("data-error-visible");
+    return true;
 }
