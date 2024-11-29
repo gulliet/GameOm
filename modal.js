@@ -28,8 +28,29 @@ function launchModal() {
 
 function closeModal() {
     console.log("La boîte de dialogue a été fermée !");
+
     const modalBackgroundElement = document.querySelector(".bground");
+    const formElement = document.querySelector("form[name='reserve']");
+
     if (modalBackgroundElement) {
+        // Réinitialiser le formulaire
+        if (formElement) {
+            formElement.reset(); // Réinitialise tous les champs du formulaire
+
+            // Supprimer les messages d'erreur et les styles liés
+            const formDataElements = formElement.querySelectorAll(".formData");
+            formDataElements.forEach((formData) => {
+                formData.removeAttribute("data-error");
+                formData.removeAttribute("data-error-visible");
+
+                const input = formData.querySelector("input, textarea, select");
+                if (input) {
+                    input.classList.remove("error-border");
+                }
+            });
+        }
+
+        // Masquer la boîte de dialogue
         modalBackgroundElement.style.display = "none";
     }
 }
