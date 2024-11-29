@@ -39,8 +39,7 @@ function validate() {
     const isLastNameValid = checkLastName();
     const isEmailValid = checkEmail();
     const isBirthdateValid = checkBirthdate();
-    // const isQuantityValid = checkQuantity();
-    const isQuantityValid = true;
+    const isQuantityValid = checkQuantity();
 
     // Empêche l'envoi du formulaire si un des champs est invalide
     return (
@@ -128,6 +127,7 @@ function checkEmail() {
         return true;
     }
 }
+
 function checkBirthdate() {
     console.log("*** Fonction checkBirthdate() appelée ***");
 
@@ -188,4 +188,28 @@ function checkBirthdate() {
     formDataElement.removeAttribute("data-error");
     formDataElement.removeAttribute("data-error-visible");
     return true;
+}
+
+function checkQuantity() {
+    console.log("*** Fonction checkQuantity() appelée ***");
+
+    const quantityElement = document.getElementById("quantity");
+    const quantity = quantityElement.value.trim();
+    const formDataElement = quantityElement.closest(".formData");
+
+    // Vérifier si c'est un nombre entier valide
+    const quantityNumber = parseInt(quantity, 10);
+
+    if (isNaN(quantityNumber) || quantityNumber < 0 || quantityNumber > 99) {
+        formDataElement.setAttribute(
+            "data-error",
+            "Veuillez saisir une quantité entre 0 et 99."
+        );
+        formDataElement.setAttribute("data-error-visible", "true");
+        return false;
+    } else {
+        formDataElement.removeAttribute("data-error");
+        formDataElement.removeAttribute("data-error-visible");
+        return true;
+    }
 }
