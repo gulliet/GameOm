@@ -26,12 +26,18 @@ function launchModal() {
     });
 }
 
-/* jmg */
-const crossMarkElement = document.querySelector(".close");
-crossMarkElement.addEventListener("click", () => {
-    console.log("La croix a été clickée !");
-    modalbg.style.display = "none";
-});
+function closeModal() {
+    console.log("La boîte de dialogue a été fermée !");
+    const modalBackgroundElement = document.querySelector(".bground");
+    if (modalBackgroundElement) {
+        modalBackgroundElement.style.display = "none";
+    }
+}
+
+const closeButtonElement = document.querySelector(".close");
+if (closeButtonElement) {
+    closeButtonElement.addEventListener("click", closeModal);
+}
 
 function validate() {
     console.log("Fonction validate() appelée");
