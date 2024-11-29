@@ -58,25 +58,24 @@
           <form name="reserve" action="index.html" method="get" onsubmit="return validate();" novalidate>
             <div class="formData">
               <label for="first">Prénom</label><br>
-              <input class="text-control" type="text" id="first" name="first"><br>
+              <input class="text-control" type="text" id="first" name="first" autocomplete="given-name"><br>
             </div>
             <div class="formData">
               <label for="last">Nom</label><br>
-              <input class="text-control" type="text" id="last" name="last"><br>
+              <input class="text-control" type="text" id="last" name="last" autocomplete="family-name"><br>
             </div>
             <div class="formData">
               <label for="email">E-mail</label><br>
-              <input class="text-control" type="text" id="email" name="email"><br>
+              <input class="text-control" type="email" id="email" name="email" autocomplete="email"><br>
             </div>
             <div class="formData">
               <label for="birthdate">Date de naissance</label><br>
-              <input class="text-control" type="text" id="birthdate" name="birthdate"><br>
+              <input class="text-control" type="date" id="birthdate" name="birthdate" autocomplete="bday"><br>
             </div>
             <div class="formData">
               <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-              <input type="text" class="text-control" id="quantity" name="quantity">
+              <input type="number" class="text-control" id="quantity" name="quantity" autocomplete="off">
             </div>
-
             <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
             <div class="formData">
               <input class="checkbox-input" type="radio" id="location1" name="location" value="New York">
@@ -104,13 +103,7 @@
                 <span class="checkbox-icon"></span>
                 Portland</label>
             </div>
-
             <div class="formData">
-              <!-- Bonne pratique : La case pour accepter les conditions générales d'utilisation n'est pas cochée par défaut.
-                   Cela garantit que l'utilisateur donne un consentement explicite, éclairé et volontaire, 
-                   conformément aux principes d'éthique et aux réglementations juridiques, comme le RGPD.
-                   Pré-cocher cette case pourrait être perçu comme une tentative d'imposer le consentement. -->
-
               <input class="checkbox-input" type="checkbox" id="checkbox1" required>
               <label class="checkbox2-label" for="checkbox1">
                 <span class="checkbox-icon"></span>
