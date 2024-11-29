@@ -98,22 +98,10 @@ function checkLastName() {
     const lastName = lastNameElement.value.trim();
     const formDataElement = lastNameElement.closest(".formData");
 
-    // Même expression régulière que pour le prénom
-    const nameRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+([ '-][a-zA-ZÀ-ÖØ-öø-ÿ]+)*$/;
-
-    if (!lastName || lastName.length < 2) {
+    if (!isValidName(lastName)) {
         formDataElement.setAttribute(
             "data-error",
-            "Le nom doit contenir au moins 2 caractères."
-        );
-        formDataElement.setAttribute("data-error-visible", "true");
-        return false;
-    }
-
-    if (!nameRegex.test(lastName)) {
-        formDataElement.setAttribute(
-            "data-error",
-            "Le nom ne doit contenir que des lettres, espaces ou tirets."
+            "Le nom doit contenir au moins 2 caractères, et ne peut contenir que des lettres, espaces ou tirets."
         );
         formDataElement.setAttribute("data-error-visible", "true");
         return false;
