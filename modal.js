@@ -38,11 +38,10 @@ function validate() {
 
     const isFirstNameValid = checkFirstName();
     const isLastNameValid = checkLastName();
-
-    // Ajoutez ici d'autres fonctions de validation si nécessaire
+    const isEmailValid = checkEmail();
 
     // Empêche l'envoi du formulaire si des erreurs sont détectées
-    return isFirstNameValid && isLastNameValid;
+    return isFirstNameValid && isLastNameValid && isEmailValid;
 }
 
 /**
@@ -83,6 +82,30 @@ function checkLastName() {
         formDataElement.setAttribute(
             "data-error",
             "Le nom doit contenir au moins 2 caractères."
+        );
+        formDataElement.setAttribute("data-error-visible", "true");
+        return false;
+    } else {
+        formDataElement.removeAttribute("data-error");
+        formDataElement.removeAttribute("data-error-visible");
+        return true;
+    }
+}
+
+function checkEmail() {
+    console.log("*** Fonction checkEmail() appelée ***");
+
+    const emailElement = document.getElementById("email");
+    const email = emailElement.value.trim();
+    const formDataElement = emailElement.closest(".formData");
+
+    // Validation de base pour l'email (regex simplifiée)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        formDataElement.setAttribute(
+            "data-error",
+            "Veuillez saisir une adresse e-mail valide."
         );
         formDataElement.setAttribute("data-error-visible", "true");
         return false;
