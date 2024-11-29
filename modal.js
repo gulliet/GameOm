@@ -1,13 +1,14 @@
 /**
- * Permet d'activer/désactiver l'état "responsive" du menu de navigation.
- * Change la classe de l'élément de navigation pour basculer entre "topnav" et "topnav responsive".
+ * Bascule l'état "responsive" du menu de navigation.
+ * Ajoute ou supprime la classe "responsive" à l'élément de navigation principal.
  */
-function editNav() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
+function toggleNavigationMenu() {
+    const navigationElement = document.getElementById("myTopnav");
+
+    if (navigationElement.className === "topnav") {
+        navigationElement.className += " responsive";
     } else {
-        x.className = "topnav";
+        navigationElement.className = "topnav";
     }
 }
 
