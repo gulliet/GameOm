@@ -1,3 +1,7 @@
+/**
+ * Permet d'activer/désactiver l'état "responsive" du menu de navigation.
+ * Change la classe de l'élément de navigation pour basculer entre "topnav" et "topnav responsive".
+ */
 function editNav() {
     var x = document.getElementById("myTopnav");
     if (x.className === "topnav") {
@@ -15,7 +19,11 @@ const formData = document.querySelectorAll(".formData");
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
-// launch modal form
+/**
+ * Affiche la boîte de dialogue modale.
+ * Change la propriété `display` de l'élément modal pour le rendre visible.
+ * Empêche le comportement par défaut du formulaire s'il est soumis pendant l'affichage.
+ */
 function launchModal() {
     modalbg.style.display = "block";
 
@@ -26,6 +34,12 @@ function launchModal() {
     });
 }
 
+/**
+ * Ferme la boîte de dialogue modale et réinitialise son contenu.
+ * - Réinitialise tous les champs du formulaire à leur état initial.
+ * - Supprime les messages d'erreur et les styles d'erreur associés.
+ * - Masque la boîte de dialogue.
+ */
 function closeModal() {
     console.log("La boîte de dialogue a été fermée !");
 
@@ -60,6 +74,12 @@ if (closeButtonElement) {
     closeButtonElement.addEventListener("click", closeModal);
 }
 
+/**
+ * Valide tous les champs du formulaire.
+ * - Vérifie les prénoms, noms, emails, dates de naissance, quantités, boutons radio, et case à cocher des conditions.
+ * - Empêche la soumission du formulaire si l'un des champs est invalide.
+ * @returns {boolean} - True si tous les champs sont valides, sinon False.
+ */
 function validate() {
     console.log("Fonction validate() appelée");
 
@@ -101,7 +121,9 @@ function isValidName(name) {
 }
 
 /**
- * Vérifie si le prénom est valide
+ * Valide le champ du prénom.
+ * Vérifie que le prénom contient au moins 2 caractères et respecte les règles de format.
+ * @returns {boolean} - True si le prénom est valide, sinon False.
  */
 function checkFirstName() {
     console.log("*** Fonction checkFirstName() appelée ***");
@@ -125,7 +147,9 @@ function checkFirstName() {
 }
 
 /**
- * Vérifie si le nom est valide
+ * Valide le champ du nom.
+ * Vérifie que le nom contient au moins 2 caractères et respecte les règles de format.
+ * @returns {boolean} - True si le nom est valide, sinon False.
  */
 function checkLastName() {
     console.log("*** Fonction checkLastName() appelée ***");
@@ -148,6 +172,11 @@ function checkLastName() {
     return true;
 }
 
+/**
+ * Valide le champ de l'email.
+ * Vérifie que l'email respecte un format valide (local@domaine.extension).
+ * @returns {boolean} - True si l'email est valide, sinon False.
+ */
 function checkEmail() {
     console.log("*** Fonction checkEmail() appelée ***");
 
@@ -177,6 +206,11 @@ function checkEmail() {
     }
 }
 
+/**
+ * Valide le champ de la date de naissance.
+ * Vérifie que la date est valide, que l'utilisateur a au moins 18 ans, et pas plus de 100 ans.
+ * @returns {boolean} - True si la date de naissance est valide, sinon False.
+ */
 function checkBirthdate() {
     console.log("*** Fonction checkBirthdate() appelée ***");
 
@@ -239,6 +273,11 @@ function checkBirthdate() {
     return true;
 }
 
+/**
+ * Valide le champ de la quantité.
+ * Vérifie que la valeur est un nombre entier entre 0 et 99 inclus.
+ * @returns {boolean} - True si la quantité est valide, sinon False.
+ */
 function checkQuantity() {
     console.log("*** Fonction checkQuantity() appelée ***");
 
@@ -270,6 +309,7 @@ function checkQuantity() {
 
 /**
  * Valide si un bouton radio a été sélectionné dans le groupe "location".
+ * Vérifie qu'au moins un bouton radio est coché.
  * @returns {boolean} - True si un bouton radio est sélectionné, sinon False.
  */
 function checkRadioButtons() {
@@ -302,12 +342,17 @@ function checkRadioButtons() {
 
 /**
  * Valide si la case "conditions d'utilisation" est cochée.
+ * Vérifie que l'utilisateur a explicitement accepté les conditions générales d'utilisation.
  *
  * Bonne pratique : La case des conditions générales d'utilisation est laissée non cochée par défaut.
  * Cela garantit que l'utilisateur donne un consentement explicite, éclairé et volontaire,
  * conformément aux principes d'éthique, d'expérience utilisateur et aux réglementations légales (comme le RGPD).
  * Pré-remplir cette case pourrait être perçu comme une tentative d'imposer le consentement sans choix réel.
  *
+ * @returns {boolean} - True si la case est cochée, sinon False.
+ */
+/**
+ * Valide si la case "conditions d'utilisation" est cochée.
  * @returns {boolean} - True si la case est cochée, sinon False.
  */
 function checkTermsAndConditions() {
