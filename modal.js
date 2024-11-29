@@ -33,29 +33,62 @@ crossMarkElement.addEventListener("click", () => {
     modalbg.style.display = "none";
 });
 
-/* jmg */
 function validate() {
     console.log("Fonction validate() appelée");
 
-    checkFirstName();
+    const isFirstNameValid = checkFirstName();
+    const isLastNameValid = checkLastName();
+
+    // Ajoutez ici d'autres fonctions de validation si nécessaire
+
+    // Empêche l'envoi du formulaire si des erreurs sont détectées
+    return isFirstNameValid && isLastNameValid;
 }
 
 /**
- * Cette fonction vérifie si le prénom est valid
+ * Vérifie si le prénom est valide
  */
 function checkFirstName() {
-    console.log("*** function checkFirstName() ***");
+    console.log("*** Fonction checkFirstName() appelée ***");
 
-    try {
-        const firstNameElement = document.getElementById("first");
-        console.log(firstNameElement);
+    const firstNameElement = document.getElementById("first");
+    const firstName = firstNameElement.value.trim(); // Supprime les espaces inutiles
+    const formDataElement = firstNameElement.closest(".formData"); // Trouve le parent avec la classe .formData
 
-        const firstName = firstNameElement.value;
-        console.log(`first name: ${firstName}`);
+    if (firstName.length < 2) {
+        formDataElement.setAttribute(
+            "data-error",
+            "Le prénom doit contenir au moins 2 caractères."
+        );
+        formDataElement.setAttribute("data-error-visible", "true");
+        return false;
+    } else {
+        formDataElement.removeAttribute("data-error");
+        formDataElement.removeAttribute("data-error-visible");
+        return true;
+    }
+}
 
-        const formDataElement = document.querySelector("formData");
-        formDataElement.classList.add("data-error");
-    } catch (error) {
-        console.log(`Une erreur est survenue : ${error.message}`);
+/**
+ * Vérifie si le nom est valide
+ */
+function checkLastName() {
+    console.log("*** Fonction checkLastName() appelée ***");
+
+    const lastNameElement = document.getElementById("last");
+    const lastName = lastNameElement.value.trim();
+    const formDataElement = lastNameElement.closest(".formData");
+
+    if (lastName.length < 2) {
+        formDataElement.setAttribute(
+            "data-error",
+            "Le nom doit contenir au moins 2 caractères."
+        );
+        formDataElement.setAttribute("data-error-visible", "true");
+        return false;
+    } else {
+        formDataElement.removeAttribute("data-error");
+        formDataElement.removeAttribute("data-error-visible");
+        return true;
     }
 }
