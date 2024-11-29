@@ -32,16 +32,24 @@ crossMarkElement.addEventListener("click", () => {
     console.log("La croix a été clickée !");
     modalbg.style.display = "none";
 });
-
 function validate() {
     console.log("Fonction validate() appelée");
 
     const isFirstNameValid = checkFirstName();
     const isLastNameValid = checkLastName();
     const isEmailValid = checkEmail();
+    const isBirthdateValid = checkBirthdate();
+    // const isQuantityValid = checkQuantity();
+    const isQuantityValid = true;
 
-    // Empêche l'envoi du formulaire si des erreurs sont détectées
-    return isFirstNameValid && isLastNameValid && isEmailValid;
+    // Empêche l'envoi du formulaire si un des champs est invalide
+    return (
+        isFirstNameValid &&
+        isLastNameValid &&
+        isEmailValid &&
+        isBirthdateValid &&
+        isQuantityValid
+    );
 }
 
 /**
@@ -119,4 +127,65 @@ function checkEmail() {
         formDataElement.removeAttribute("data-error-visible");
         return true;
     }
+}
+function checkBirthdate() {
+    console.log("*** Fonction checkBirthdate() appelée ***");
+
+    const birthdateElement = document.getElementById("birthdate");
+    const birthdate = birthdateElement.value.trim();
+    const formDataElement = birthdateElement.closest(".formData");
+
+    if (!birthdate) {
+        formDataElement.setAttribute(
+            "data-error",
+            "Veuillez saisir votre date de naissance."
+        );
+        formDataElement.setAttribute("data-error-visible", "true");
+        return false;
+    }
+
+    const birthDateObj = new Date(birthdate);
+    const today = new Date();
+
+    // Vérifier si la date est invalide
+    if (isNaN(birthDateObj.getTime())) {
+        formDataElement.setAttribute(
+            "data-error",
+            "Veuillez saisir une date valide."
+        );
+        formDataElement.setAttribute("data-error-visible", "true");
+        return false;
+    }
+
+    // Calculer l'âge
+    const age = today.getFullYear() - birthDateObj.getFullYear();
+    const monthDifference = today.getMonth() - birthDateObj.getMonth();
+    const dayDifference = today.getDate() - birthDateObj.getDate();
+
+    // Ajustement de l'âge si l'anniversaire n'a pas encore été fêté cette année
+    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+        age--;
+    }
+
+    // Vérifier si l'âge est dans une plage raisonnable
+    if (age < 18) {
+        formDataElement.setAttribute(
+            "data-error",
+            "Vous devez avoir au moins 18 ans."
+        );
+        formDataElement.setAttribute("data-error-visible", "true");
+        return false;
+    } else if (age > 100) {
+        formDataElement.setAttribute(
+            "data-error",
+            "Veuillez saisir une date de naissance valide (moins de 100 ans)."
+        );
+        formDataElement.setAttribute("data-error-visible", "true");
+        return false;
+    }
+
+    // Si tout est valide
+    formDataElement.removeAttribute("data-error");
+    formDataElement.removeAttribute("data-error-visible");
+    return true;
 }
