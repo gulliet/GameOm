@@ -58,21 +58,33 @@ function checkFirstName() {
     console.log("*** Fonction checkFirstName() appelée ***");
 
     const firstNameElement = document.getElementById("first");
-    const firstName = firstNameElement.value.trim(); // Supprime les espaces inutiles
-    const formDataElement = firstNameElement.closest(".formData"); // Trouve le parent avec la classe .formData
+    const firstName = firstNameElement.value.trim();
+    const formDataElement = firstNameElement.closest(".formData");
 
-    if (firstName.length < 2) {
+    // Expression régulière pour valider les prénoms
+    const nameRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ]+([ '-][a-zA-ZÀ-ÖØ-öø-ÿ]+)*$/;
+
+    if (!firstName || firstName.length < 2) {
         formDataElement.setAttribute(
             "data-error",
             "Le prénom doit contenir au moins 2 caractères."
         );
         formDataElement.setAttribute("data-error-visible", "true");
         return false;
-    } else {
-        formDataElement.removeAttribute("data-error");
-        formDataElement.removeAttribute("data-error-visible");
-        return true;
     }
+
+    if (!nameRegex.test(firstName)) {
+        formDataElement.setAttribute(
+            "data-error",
+            "Le prénom ne doit contenir que des lettres, espaces ou tirets."
+        );
+        formDataElement.setAttribute("data-error-visible", "true");
+        return false;
+    }
+
+    formDataElement.removeAttribute("data-error");
+    formDataElement.removeAttribute("data-error-visible");
+    return true;
 }
 
 /**
