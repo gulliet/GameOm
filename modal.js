@@ -275,6 +275,12 @@ function checkRadioButtons() {
 
 /**
  * Valide si la case "conditions d'utilisation" est cochée.
+ *
+ * Bonne pratique : La case des conditions générales d'utilisation est laissée non cochée par défaut.
+ * Cela garantit que l'utilisateur donne un consentement explicite, éclairé et volontaire,
+ * conformément aux principes d'éthique, d'expérience utilisateur et aux réglementations légales (comme le RGPD).
+ * Pré-remplir cette case pourrait être perçu comme une tentative d'imposer le consentement sans choix réel.
+ *
  * @returns {boolean} - True si la case est cochée, sinon False.
  */
 function checkTermsAndConditions() {

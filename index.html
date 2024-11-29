@@ -106,7 +106,12 @@
             </div>
 
             <div class="formData">
-              <input class="checkbox-input" type="checkbox" id="checkbox1" checked required>
+              <!-- Bonne pratique : La case pour accepter les conditions générales d'utilisation n'est pas cochée par défaut.
+                   Cela garantit que l'utilisateur donne un consentement explicite, éclairé et volontaire, 
+                   conformément aux principes d'éthique et aux réglementations juridiques, comme le RGPD.
+                   Pré-cocher cette case pourrait être perçu comme une tentative d'imposer le consentement. -->
+
+              <input class="checkbox-input" type="checkbox" id="checkbox1" required>
               <label class="checkbox2-label" for="checkbox1">
                 <span class="checkbox-icon"></span>
                 J'ai lu et accepté les conditions d'utilisation.
