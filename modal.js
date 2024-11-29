@@ -198,12 +198,17 @@ function checkQuantity() {
     const formDataElement = quantityElement.closest(".formData");
 
     // Vérifier si c'est un nombre entier valide
-    const quantityNumber = parseInt(quantity, 10);
+    const quantityNumber = parseFloat(quantity); // Conversion en nombre à virgule flottante
 
-    if (isNaN(quantityNumber) || quantityNumber < 0 || quantityNumber > 99) {
+    if (
+        isNaN(quantityNumber) || // Pas un nombre valide
+        !Number.isInteger(quantityNumber) || // Pas un entier
+        quantityNumber < 0 || // Trop petit
+        quantityNumber > 99 // Trop grand
+    ) {
         formDataElement.setAttribute(
             "data-error",
-            "Veuillez saisir une quantité entre 0 et 99."
+            "Veuillez saisir un nombre entier entre 0 et 99."
         );
         formDataElement.setAttribute("data-error-visible", "true");
         return false;
