@@ -413,31 +413,34 @@ function checkQuantity() {
  * @returns {boolean} - True si un bouton radio est sélectionné, sinon False.
  */
 function checkRadioButtons() {
-    console.log("*** Fonction checkRadioButtons() appelée ***");
+    try {
+        console.log("*** Fonction checkRadioButtons() appelée ***");
 
-    // Sélectionne tous les boutons radio du groupe "location"
-    const radioButtons = document.querySelectorAll('input[name="location"]');
-    const formDataElement = radioButtons[0].closest(".formData");
+        const radioButtons = document.querySelectorAll(SELECTORS.locationRadio);
+        if (radioButtons.length === 0)
+            throw new Error("Aucun bouton radio 'location' trouvé.");
 
-    // Vérifie si au moins un bouton est coché
-    const isAnyRadioSelected = Array.from(radioButtons).some(
-        (radio) => radio.checked
-    );
-
-    if (!isAnyRadioSelected) {
-        // Affiche un message d'erreur si aucun bouton n'est sélectionné
-        formDataElement.setAttribute(
-            "data-error",
-            "Veuillez sélectionner un emplacement pour participer au tournoi."
+        const formDataElement = radioButtons[0].closest(SELECTORS.formData);
+        const isAnyRadioSelected = Array.from(radioButtons).some(
+            (radio) => radio.checked
         );
-        formDataElement.setAttribute("data-error-visible", "true");
+
+        if (!isAnyRadioSelected) {
+            formDataElement.setAttribute(
+                "data-error",
+                "Veuillez sélectionner un emplacement pour participer au tournoi."
+            );
+            formDataElement.setAttribute("data-error-visible", "true");
+            return false;
+        }
+
+        formDataElement.removeAttribute("data-error");
+        formDataElement.removeAttribute("data-error-visible");
+        return true;
+    } catch (error) {
+        console.error("Erreur dans checkRadioButtons:", error.message);
         return false;
     }
-
-    // Supprime le message d'erreur si un bouton est sélectionné
-    formDataElement.removeAttribute("data-error");
-    formDataElement.removeAttribute("data-error-visible");
-    return true;
 }
 
 /**
@@ -456,24 +459,29 @@ function checkRadioButtons() {
  * @returns {boolean} - True si la case est cochée, sinon False.
  */
 function checkTermsAndConditions() {
-    console.log("*** Fonction checkTermsAndConditions() appelée ***");
+    try {
+        console.log("*** Fonction checkTermsAndConditions() appelée ***");
 
-    // Sélectionne la première case à cocher (conditions d'utilisation)
-    const termsCheckbox = document.getElementById("checkbox1");
-    const formDataElement = termsCheckbox.closest(".formData");
+        const termsCheckbox = document.querySelector(SELECTORS.termsCheckbox);
+        if (!termsCheckbox)
+            throw new Error("Checkbox des conditions générales introuvable.");
 
-    if (!termsCheckbox.checked) {
-        // Affiche un message d'erreur si la case n'est pas cochée
-        formDataElement.setAttribute(
-            "data-error",
-            "Vous devez accepter les conditions d'utilisation pour continuer."
-        );
-        formDataElement.setAttribute("data-error-visible", "true");
+        const formDataElement = termsCheckbox.closest(SELECTORS.formData);
+
+        if (!termsCheckbox.checked) {
+            formDataElement.setAttribute(
+                "data-error",
+                "Vous devez accepter les conditions d'utilisation pour continuer."
+            );
+            formDataElement.setAttribute("data-error-visible", "true");
+            return false;
+        }
+
+        formDataElement.removeAttribute("data-error");
+        formDataElement.removeAttribute("data-error-visible");
+        return true;
+    } catch (error) {
+        console.error("Erreur dans checkTermsAndConditions:", error.message);
         return false;
     }
-
-    // Supprime le message d'erreur si la case est cochée
-    formDataElement.removeAttribute("data-error");
-    formDataElement.removeAttribute("data-error-visible");
-    return true;
 }
