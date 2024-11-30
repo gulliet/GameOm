@@ -56,20 +56,46 @@ function attachEventListeners() {
         console.error("Bouton de fermeture introuvable.");
     }
 
-    // Événement pour afficher la confirmation lors de la soumission
+    // Gestionnaire pour soumettre le formulaire
     const form = document.querySelector(SELECTORS.form);
     if (form) {
         form.addEventListener("submit", (event) => {
             event.preventDefault();
-            const modalBackground = document.querySelector(
-                SELECTORS.modalBackground
-            );
-            if (modalBackground) modalBackground.style.display = "none";
-            showConfirmationModal();
+
+            // Valide tous les champs du formulaire
+            const isFirstNameValid = checkFirstName();
+            const isLastNameValid = checkLastName();
+            const isEmailValid = checkEmail();
+            const isBirthdateValid = checkBirthdate();
+            const isQuantityValid = checkQuantity();
+            const isRadioValid = checkRadioButtons();
+            const isTermsValid = checkTermsAndConditions();
+
+            // Affiche la confirmation uniquement si toutes les validations passent
+            const isFormValid =
+                isFirstNameValid &&
+                isLastNameValid &&
+                isEmailValid &&
+                isBirthdateValid &&
+                isQuantityValid &&
+                isRadioValid &&
+                isTermsValid;
+
+            if (isFormValid) {
+                const modalBackground = document.querySelector(
+                    SELECTORS.modalBackground
+                );
+                if (modalBackground) modalBackground.style.display = "none";
+                showConfirmationModal();
+            } else {
+                console.log(
+                    "Formulaire invalide. La confirmation ne s'affiche pas."
+                );
+            }
         });
     }
 
-    // Événement pour fermer la boîte de confirmation
+    // Événements pour la boîte de confirmation
     const confirmationClose = document.querySelector(".confirmation-close");
     const confirmationButton = document.querySelector(".confirmation-button");
 
