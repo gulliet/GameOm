@@ -1,9 +1,76 @@
 /**
+ * Sélecteurs centralisés pour les éléments DOM utilisés dans le script.
+ * - Facilite la gestion et la modification des identifiants ou classes des éléments.
+ * - Réduit la répétition des sélecteurs dans le code, améliorant ainsi la lisibilité et la maintenabilité.
+ * - Assure une référence unique pour chaque élément important.
+ *
+ * Exemple d'utilisation :
+ * const modalBackgroundElement = document.querySelector(SELECTORS.modalBackground);
+ */
+const SELECTORS = {
+    navigationMenu: "#myTopnav", // Menu de navigation principal
+    modalBackground: ".bground", // Arrière-plan de la boîte de dialogue modale
+    modalButton: ".modal-btn", // Boutons pour ouvrir la boîte de dialogue
+    closeButton: ".close", // Bouton pour fermer la boîte de dialogue
+    form: "form[name='reserve']", // Formulaire principal
+    firstNameInput: "#first", // Champ de saisie du prénom
+    lastNameInput: "#last", // Champ de saisie du nom
+    emailInput: "#email", // Champ de saisie de l'email
+    birthdateInput: "#birthdate", // Champ de saisie de la date de naissance
+    quantityInput: "#quantity", // Champ de saisie de la quantité
+    locationRadio: "input[name='location']", // Boutons radio pour la sélection d'emplacement
+    termsCheckbox: "#checkbox1", // Case à cocher pour les conditions générales
+    formData: ".formData", // Conteneur pour chaque champ du formulaire
+};
+
+/**
+ * Attache les gestionnaires d'événements aux éléments interactifs de l'interface utilisateur.
+ * - Ajoute un événement "click" aux boutons pour ouvrir la boîte de dialogue modale.
+ * - Ajoute un événement "click" au bouton de fermeture de la modale.
+ * - Vérifie la présence des éléments dans le DOM avant d'attacher les événements pour éviter les erreurs.
+ *
+ * Fonctionnalité :
+ * - Permet de déclencher l'affichage ou la fermeture de la boîte de dialogue modale en fonction des interactions utilisateur.
+ *
+ * Documentation :
+ * - Cette fonction est appelée lors du chargement complet du DOM via `DOMContentLoaded`.
+ * - Elle centralise les gestionnaires pour une meilleure lisibilité et évite de dupliquer le code ailleurs.
+ */
+function attachEventListeners() {
+    const modalButtons = document.querySelectorAll(SELECTORS.modalButton);
+    const closeButton = document.querySelector(SELECTORS.closeButton);
+
+    // Événement pour afficher la modale
+    modalButtons.forEach((button) => {
+        if (button) {
+            button.addEventListener("click", launchModal);
+        } else {
+            console.error("Bouton modale introuvable.");
+        }
+    });
+
+    // Événement pour fermer la modale
+    if (closeButton) {
+        closeButton.addEventListener("click", closeModal);
+    } else {
+        console.error("Bouton de fermeture introuvable.");
+    }
+}
+
+// Appeler la fonction lors du chargement
+document.addEventListener("DOMContentLoaded", attachEventListeners);
+
+/**
  * Bascule l'état "responsive" du menu de navigation.
  * Ajoute ou supprime la classe "responsive" à l'élément de navigation principal.
  */
 function toggleNavigationMenu() {
-    const navigationElement = document.getElementById("myTopnav");
+    const navigationElement = document.querySelector(SELECTORS.navigationMenu);
+
+    if (!navigationElement) {
+        console.error("Élément de navigation introuvable.");
+        return;
+    }
 
     if (navigationElement.className === "topnav") {
         navigationElement.className += " responsive";
@@ -26,13 +93,17 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
  * Empêche le comportement par défaut du formulaire s'il est soumis pendant l'affichage.
  */
 function launchModal() {
-    modalbg.style.display = "block";
+    const modalBackgroundElement = document.querySelector(
+        SELECTORS.modalBackground
+    );
 
-    console.log("function launchModal()");
-    modalbg.addEventListener("submit", (event) => {
-        event.preventDefault();
-        console.log("Comportement par défaut enlevé");
-    });
+    if (!modalBackgroundElement) {
+        console.error("Élément modale introuvable.");
+        return;
+    }
+
+    modalBackgroundElement.style.display = "block";
+    console.log("Modale affichée.");
 }
 
 /**
@@ -42,32 +113,28 @@ function launchModal() {
  * - Masque la boîte de dialogue.
  */
 function closeModal() {
-    console.log("La boîte de dialogue a été fermée !");
+    const modalBackgroundElement = document.querySelector(
+        SELECTORS.modalBackground
+    );
+    const formElement = document.querySelector(SELECTORS.form);
 
-    const modalBackgroundElement = document.querySelector(".bground");
-    const formElement = document.querySelector("form[name='reserve']");
-
-    if (modalBackgroundElement) {
-        // Réinitialiser le formulaire
-        if (formElement) {
-            formElement.reset(); // Réinitialise tous les champs du formulaire
-
-            // Supprimer les messages d'erreur et les styles liés
-            const formDataElements = formElement.querySelectorAll(".formData");
-            formDataElements.forEach((formData) => {
-                formData.removeAttribute("data-error");
-                formData.removeAttribute("data-error-visible");
-
-                const input = formData.querySelector("input, textarea, select");
-                if (input) {
-                    input.classList.remove("error-border");
-                }
-            });
-        }
-
-        // Masquer la boîte de dialogue
-        modalBackgroundElement.style.display = "none";
+    if (!modalBackgroundElement || !formElement) {
+        console.error("Modale ou formulaire introuvable.");
+        return;
     }
+
+    // Réinitialiser le formulaire
+    formElement.reset();
+
+    // Supprimer les messages d'erreur et styles associés
+    const formDataElements = formElement.querySelectorAll(SELECTORS.formData);
+    formDataElements.forEach((formData) => {
+        formData.removeAttribute("data-error");
+        formData.removeAttribute("data-error-visible");
+    });
+
+    modalBackgroundElement.style.display = "none";
+    console.log("Modale fermée et réinitialisée.");
 }
 
 const closeButtonElement = document.querySelector(".close");
@@ -128,14 +195,14 @@ function isValidName(name) {
  */
 function checkFirstName() {
     try {
-        console.log("*** Fonction checkFirstName() appelée ***");
+        const firstNameElement = document.querySelector(
+            SELECTORS.firstNameInput
+        );
 
-        const firstNameElement = document.getElementById("first");
-        if (!firstNameElement)
-            throw new Error("Champ prénom introuvable dans le DOM.");
+        if (!firstNameElement) throw new Error("Champ prénom introuvable.");
 
         const firstName = firstNameElement.value.trim();
-        const formDataElement = firstNameElement.closest(".formData");
+        const formDataElement = firstNameElement.closest(SELECTORS.formData);
 
         if (!isValidName(firstName)) {
             formDataElement.setAttribute(
@@ -151,7 +218,7 @@ function checkFirstName() {
         return true;
     } catch (error) {
         console.error("Erreur dans checkFirstName:", error.message);
-        return false; // Bloque la validation si une erreur inattendue survient
+        return false;
     }
 }
 
