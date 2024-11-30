@@ -79,14 +79,6 @@ function toggleNavigationMenu() {
     }
 }
 
-// DOM Elements
-const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
-
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
 /**
  * Affiche la boîte de dialogue modale.
  * Change la propriété `display` de l'élément modal pour le rendre visible.
@@ -135,11 +127,6 @@ function closeModal() {
 
     modalBackgroundElement.style.display = "none";
     console.log("Modale fermée et réinitialisée.");
-}
-
-const closeButtonElement = document.querySelector(".close");
-if (closeButtonElement) {
-    closeButtonElement.addEventListener("click", closeModal);
 }
 
 /**
@@ -452,10 +439,6 @@ function checkRadioButtons() {
  * conformément aux principes d'éthique, d'expérience utilisateur et aux réglementations légales (comme le RGPD).
  * Pré-remplir cette case pourrait être perçu comme une tentative d'imposer le consentement sans choix réel.
  *
- * @returns {boolean} - True si la case est cochée, sinon False.
- */
-/**
- * Valide si la case "conditions d'utilisation" est cochée.
  * @returns {boolean} - True si la case est cochée, sinon False.
  */
 function checkTermsAndConditions() {
