@@ -25,9 +25,9 @@ const SELECTORS = {
 
 /**
  * Attache les gestionnaires d'événements aux éléments interactifs de l'interface utilisateur.
- * - Ajoute un événement "click" aux boutons pour ouvrir la boîte de dialogue modale.
- * - Ajoute un événement "click" au bouton de fermeture de la modale.
- * - Vérifie la présence des éléments dans le DOM avant d'attacher les événements pour éviter les erreurs.
+ * - Ajoute un événement `submit` au formulaire pour afficher la boîte de confirmation et masquer le formulaire principal.
+ * - Ajoute des événements `click` au bouton de fermeture et à la croix dans la boîte de confirmation.
+ * - Vérifie la présence des éléments avant d'attacher les événements pour éviter des erreurs.
  *
  * Fonctionnalité :
  * - Permet de déclencher l'affichage ou la fermeture de la boîte de dialogue modale en fonction des interactions utilisateur.
@@ -54,6 +54,31 @@ function attachEventListeners() {
         closeButton.addEventListener("click", closeModal);
     } else {
         console.error("Bouton de fermeture introuvable.");
+    }
+
+    // Événement pour afficher la confirmation lors de la soumission
+    const form = document.querySelector(SELECTORS.form);
+    if (form) {
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const modalBackground = document.querySelector(
+                SELECTORS.modalBackground
+            );
+            if (modalBackground) modalBackground.style.display = "none";
+            showConfirmationModal();
+        });
+    }
+
+    // Événement pour fermer la boîte de confirmation
+    const confirmationClose = document.querySelector(".confirmation-close");
+    const confirmationButton = document.querySelector(".confirmation-button");
+
+    if (confirmationClose) {
+        confirmationClose.addEventListener("click", closeConfirmationModal);
+    }
+
+    if (confirmationButton) {
+        confirmationButton.addEventListener("click", closeConfirmationModal);
     }
 }
 
@@ -466,5 +491,31 @@ function checkTermsAndConditions() {
     } catch (error) {
         console.error("Erreur dans checkTermsAndConditions:", error.message);
         return false;
+    }
+}
+
+/**
+ * Affiche la boîte de dialogue de confirmation après la soumission du formulaire.
+ * - Change la propriété CSS `display` pour rendre la boîte de confirmation visible.
+ * - Utilisée pour informer l'utilisateur que l'inscription a été réussie.
+ */
+function showConfirmationModal() {
+    const confirmationModal = document.querySelector(".confirmation-modal");
+
+    if (confirmationModal) {
+        confirmationModal.style.display = "block";
+    }
+}
+
+/**
+ * Ferme la boîte de dialogue de confirmation.
+ * - Change la propriété CSS `display` pour masquer la boîte de confirmation.
+ * - Permet à l'utilisateur de revenir à l'état normal de l'application après l'affichage de la confirmation.
+ */
+function closeConfirmationModal() {
+    const confirmationModal = document.querySelector(".confirmation-modal");
+
+    if (confirmationModal) {
+        confirmationModal.style.display = "none";
     }
 }

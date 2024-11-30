@@ -580,3 +580,48 @@ footer {
     opacity: 1;
   }
 }
+
+/* Confirmation Modal */
+.confirmation-modal .content {
+  margin: 5% auto;
+  width: 100%;
+  max-width: 400px;
+  background: #232323;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+.confirmation-message {
+  font-size: 24px;
+  margin: 20px 0;
+  font-weight: bold;
+}
+
+.confirmation-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  background-color: #fe142f;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.confirmation-button:hover {
+  background-color: #3876ac;
+}
+
+.confirmation-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+}
