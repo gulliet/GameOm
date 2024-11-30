@@ -344,7 +344,7 @@ function checkBirthdate() {
             return false;
         }
 
-        const age = today.getFullYear() - birthDateObj.getFullYear();
+        let age = today.getFullYear() - birthDateObj.getFullYear(); // Remplacement de const par let
         const monthDifference = today.getMonth() - birthDateObj.getMonth();
         const dayDifference = today.getDate() - birthDateObj.getDate();
 
@@ -352,7 +352,7 @@ function checkBirthdate() {
             monthDifference < 0 ||
             (monthDifference === 0 && dayDifference < 0)
         ) {
-            age--;
+            age--; // Correction : Modification de la variable autorisée
         }
 
         if (age < 18) {
