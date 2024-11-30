@@ -37,25 +37,6 @@ const SELECTORS = {
  * - Elle centralise les gestionnaires pour une meilleure lisibilité et évite de dupliquer le code ailleurs.
  */
 function attachEventListeners() {
-    const modalButtons = document.querySelectorAll(SELECTORS.modalButton);
-    const closeButton = document.querySelector(SELECTORS.closeButton);
-
-    // Événement pour afficher la modale
-    modalButtons.forEach((button) => {
-        if (button) {
-            button.addEventListener("click", launchModal);
-        } else {
-            console.error("Bouton modale introuvable.");
-        }
-    });
-
-    // Événement pour fermer la modale
-    if (closeButton) {
-        closeButton.addEventListener("click", closeModal);
-    } else {
-        console.error("Bouton de fermeture introuvable.");
-    }
-
     // Gestionnaire pour soumettre le formulaire
     const form = document.querySelector(SELECTORS.form);
     if (form) {
@@ -82,10 +63,25 @@ function attachEventListeners() {
                 isTermsValid;
 
             if (isFormValid) {
+                // Réinitialise le formulaire après une inscription réussie
+                form.reset();
+
+                // Supprime les messages d'erreur visibles
+                const formDataElements = form.querySelectorAll(
+                    SELECTORS.formData
+                );
+                formDataElements.forEach((formData) => {
+                    formData.removeAttribute("data-error");
+                    formData.removeAttribute("data-error-visible");
+                });
+
+                // Ferme la boîte de dialogue d'inscription
                 const modalBackground = document.querySelector(
                     SELECTORS.modalBackground
                 );
                 if (modalBackground) modalBackground.style.display = "none";
+
+                // Affiche la boîte de confirmation
                 showConfirmationModal();
             } else {
                 console.log(
@@ -93,6 +89,20 @@ function attachEventListeners() {
                 );
             }
         });
+    }
+
+    // Ajout de l'événement pour afficher la modale d'inscription
+    const modalButtons = document.querySelectorAll(SELECTORS.modalButton);
+    if (modalButtons) {
+        modalButtons.forEach((button) => {
+            button.addEventListener("click", launchModal);
+        });
+    }
+
+    // Événement pour fermer la boîte de dialogue d'inscription via la croix
+    const closeButton = document.querySelector(SELECTORS.closeButton);
+    if (closeButton) {
+        closeButton.addEventListener("click", closeModal);
     }
 
     // Événements pour la boîte de confirmation
