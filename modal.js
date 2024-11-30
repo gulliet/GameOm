@@ -229,14 +229,12 @@ function checkFirstName() {
  */
 function checkLastName() {
     try {
-        console.log("*** Fonction checkLastName() appelée ***");
+        const lastNameElement = document.querySelector(SELECTORS.lastNameInput);
 
-        const lastNameElement = document.getElementById("last");
-        if (!lastNameElement)
-            throw new Error("Champ nom introuvable dans le DOM.");
+        if (!lastNameElement) throw new Error("Champ nom introuvable.");
 
         const lastName = lastNameElement.value.trim();
-        const formDataElement = lastNameElement.closest(".formData");
+        const formDataElement = lastNameElement.closest(SELECTORS.formData);
 
         if (!isValidName(lastName)) {
             formDataElement.setAttribute(
@@ -263,14 +261,12 @@ function checkLastName() {
  */
 function checkEmail() {
     try {
-        console.log("*** Fonction checkEmail() appelée ***");
+        const emailElement = document.querySelector(SELECTORS.emailInput);
 
-        const emailElement = document.getElementById("email");
-        if (!emailElement)
-            throw new Error("Champ email introuvable dans le DOM.");
+        if (!emailElement) throw new Error("Champ email introuvable.");
 
         const email = emailElement.value.trim();
-        const formDataElement = emailElement.closest(".formData");
+        const formDataElement = emailElement.closest(SELECTORS.formData);
 
         // Validation de base pour l'email (regex simplifiée)
         // Cette expression régulière vérifie si une chaîne est une adresse email valide.
@@ -305,14 +301,15 @@ function checkEmail() {
  */
 function checkBirthdate() {
     try {
-        console.log("*** Fonction checkBirthdate() appelée ***");
+        const birthdateElement = document.querySelector(
+            SELECTORS.birthdateInput
+        );
 
-        const birthdateElement = document.getElementById("birthdate");
         if (!birthdateElement)
-            throw new Error("Champ date de naissance introuvable dans le DOM.");
+            throw new Error("Champ date de naissance introuvable.");
 
         const birthdate = birthdateElement.value.trim();
-        const formDataElement = birthdateElement.closest(".formData");
+        const formDataElement = birthdateElement.closest(SELECTORS.formData);
 
         if (!birthdate) {
             formDataElement.setAttribute(
@@ -378,14 +375,12 @@ function checkBirthdate() {
  */
 function checkQuantity() {
     try {
-        console.log("*** Fonction checkQuantity() appelée ***");
+        const quantityElement = document.querySelector(SELECTORS.quantityInput);
 
-        const quantityElement = document.getElementById("quantity");
-        if (!quantityElement)
-            throw new Error("Champ quantité introuvable dans le DOM.");
+        if (!quantityElement) throw new Error("Champ quantité introuvable.");
 
         const quantity = quantityElement.value.trim();
-        const formDataElement = quantityElement.closest(".formData");
+        const formDataElement = quantityElement.closest(SELECTORS.formData);
 
         const quantityNumber = parseFloat(quantity);
 
