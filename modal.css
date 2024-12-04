@@ -62,7 +62,7 @@ img {
   border-radius: 15px;
 }
 
-.topnav a.active {
+.topnav a .active {
   background-color: #ff0000;
   color: #ffffff;
   border-radius: 15px;
